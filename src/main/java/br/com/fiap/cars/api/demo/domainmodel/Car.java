@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "CARRO")
+@Table(name = "CAR")
 @NoArgsConstructor
-public class Carro {
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Carro {
     private double preco;
 
 
-    public Carro(Long id, String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economiaValor, double preco) {
+    public Car(Long id, String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economiaValor, double preco) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
