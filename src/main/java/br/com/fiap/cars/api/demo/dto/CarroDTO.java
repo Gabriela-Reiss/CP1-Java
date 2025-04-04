@@ -2,7 +2,7 @@ package br.com.fiap.cars.api.demo.dto;
 
 import br.com.fiap.cars.api.demo.domainmodel.enuns.TipoCarro;
 
-public class CarDTO {
+public class CarroDTO {
 
     private String marca;
     private String modelo;
@@ -12,10 +12,10 @@ public class CarDTO {
     private double economia;
     private double preco;
 
-    public CarDTO() {
+    public CarroDTO() {
     }
 
-    public CarDTO(String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economia, double preco) {
+    public CarroDTO(String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economia, double preco) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
