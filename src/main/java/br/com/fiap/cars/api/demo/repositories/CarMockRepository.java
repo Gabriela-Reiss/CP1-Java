@@ -30,11 +30,6 @@ public class CarMockRepository {
         return car;
     }
 
-    public Car saveUpdateCar(Long id, Car car){
-        Car carId = getById(id);
-        saveCar(carId);
-        return null;
-    }
 
     public Car getById(Long id){
         List<Car> cars = this.getAll();

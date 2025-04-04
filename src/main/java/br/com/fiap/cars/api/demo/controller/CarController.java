@@ -45,18 +45,13 @@ public class CarController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Car> updateCar(@PathVariable Long id, @RequestBody CarDTO carDTO) {
-        Car carExistente = carService.findById(id);
-        if (carExistente == null) {
-            return ResponseEntity.notFound().build();
-        }
-        
-        Car carAtualizado = carDTO.toEntity(id);
-        carService.updateCar(carAtualizado);
-
-        return ResponseEntity.ok(carAtualizado);
+        Car updatedCar = this.carService.updateCar(id, carDTO);
+        return new ResponseEntity<>(updatedCar, HttpStatus.OK);
     }
+
+
 
 
 }
