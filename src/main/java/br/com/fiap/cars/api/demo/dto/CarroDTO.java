@@ -10,12 +10,12 @@ public class CarroDTO {
     private double potencia;
     private TipoCarro tipo;
     private double economia;
-    private double preco;
+    private float preco;
 
     public CarroDTO() {
     }
 
-    public CarroDTO(String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economia, double preco) {
+    public CarroDTO(String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economia, float preco) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
@@ -73,11 +73,11 @@ public class CarroDTO {
         this.economia = economia;
     }
 
-    public double getPreco() {
+    public float getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(float preco) {
         this.preco = preco;
     }
 }

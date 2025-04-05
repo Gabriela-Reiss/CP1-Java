@@ -20,11 +20,11 @@ public class Carro {
 
     private String economia; // Agora armazena o valor já com unidade
 
-    private double preco;
+    private float preco;
 
     public Carro() {}
 
-    public Carro(Long id, String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economiaValor, double preco) {
+    public Carro(Long id, String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economiaValor, float preco) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
@@ -89,11 +89,11 @@ public class Carro {
         this.potencia = potencia + " HP";
     }
 
-    public double getPreco() {
+    public float getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(float preco) {
         this.preco = preco;
     }
 
