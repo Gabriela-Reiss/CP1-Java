@@ -2,9 +2,14 @@ package br.com.fiap.cars.api.demo.domainmodel;
 
 import br.com.fiap.cars.api.demo.domainmodel.enuns.TipoCarro;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "CAR")
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Carro {
 
     @Id
@@ -22,7 +27,7 @@ public class Carro {
 
     private float preco;
 
-    public Carro() {}
+
 
     public Carro(Long id, String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economiaValor, float preco) {
         this.id = id;
