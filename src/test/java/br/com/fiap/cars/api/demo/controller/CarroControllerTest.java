@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import io.restassured.RestAssured;
-import org.springframework.http.HttpStatus;
+
 
 import java.util.List;
 
@@ -62,18 +62,20 @@ public class CarroControllerTest {
     @Test
     void testGetCarById() {
         given()
+                .contentType(ContentType.JSON)
                 .when()
-                .get("/carros/" + 1L)
+                .get("/carros/" + 2L)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(1))
-                .body("marca", equalTo("Fiat"))
-                .body("modelo", equalTo("Toro"))
-                .body("ano", equalTo(2015))
-                .body("potencia", equalTo("250.0 HP"))
-                .body("tipo", equalTo("COMBUSTAO"))
-                .body("economia", equalTo("50.0 km/litro"))
-                .body("preco", equalTo(700000.0F));
+                .body("id", equalTo(2))
+                .body("marca", equalTo("Toyota"))
+                .body("modelo", equalTo("Corolla"))
+                .body("ano", equalTo(2021))
+                .body("potencia", equalTo("200.0 HP"))
+                .body("tipo", equalTo("HIBRIDO"))
+                .body("preco", equalTo(110000.0F))
+                .body("economia", equalTo("55.0 km/litro"));
+
     }
     @Test
     void testDeleteCar() {
@@ -106,11 +108,35 @@ public class CarroControllerTest {
     }
 
     @Test
-    void getCarsByPotencia() {
+    void testGetCarsByPotencia() {
+        List<String> modelosEletricos = given()
+                .when()
+                .get("/carros/potencia")
+                .then()
+                .statusCode(200)
+                .body("size()", equalTo(10))
+                .extract()
+                .jsonPath()
+                .getList("modelo", String.class);
+
+        List<String> modelosEsperados = List.of(
+                "Model 3",
+                "Toro",
+                "Fusion",
+                "Ioniq",
+                "Golf",
+                "Corolla",
+                "Leaf",
+                "Kwid E-Tech",
+                "208",
+                "Onix"
+
+        );
+        assertEquals(modelosEsperados, modelosEletricos);
     }
 
     @Test
-    void getCarsByEconomia() {
+    void testGetCarsByEconomia() {
         List<String> modelosOrdenados = given()
                 .when()
                 .get("/carros/economia")
@@ -141,7 +167,7 @@ public class CarroControllerTest {
 
 
     @Test
-    void getCarsEletricos() {
+    void testGetCarsEletricos() {
         List<String> modelosEletricos = given()
                 .when()
                 .get("/carros/eletricos")

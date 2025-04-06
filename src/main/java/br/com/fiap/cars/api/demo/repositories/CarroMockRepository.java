@@ -3,6 +3,7 @@ package br.com.fiap.cars.api.demo.repositories;
 import br.com.fiap.cars.api.demo.domainmodel.Carro;
 import br.com.fiap.cars.api.demo.domainmodel.enuns.TipoCarro;
 import br.com.fiap.cars.api.demo.dto.CarroDTO;
+import br.com.fiap.cars.api.demo.exceptions.NotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ public class CarroMockRepository {
         this.dataset.add(new Carro(8L, "Nissan", "Leaf", 2022, 200, ELETRICO, 100, 130000));
         this.dataset.add(new Carro(9L, "Hyundai", "Ioniq", 2021, 230, HIBRIDO, 60, 125000));
         this.dataset.add(new Carro(10L, "Peugeot", "208", 2019, 160, COMBUSTAO, 42, 72000));
-
         this.dataset.sort((o1, o2) -> o1.getId().compareTo(o2.getId()));
     }
 
@@ -85,10 +85,6 @@ public class CarroMockRepository {
                 .collect(Collectors.toList());
     }
 
-
-
-
-
     public Carro getById(Long id){
         List<Carro> carros = this.getAll();
         for (int i = 0; i < getAll().size(); i++) {
@@ -100,9 +96,10 @@ public class CarroMockRepository {
     }
 
     public void deleteById(Long id){
-        this.dataset.removeIf(
-                carro -> carro.getId().equals(id)
-        );
+        Carro carroId = getById(id);
+        this.dataset.remove(carroId);
+
+
     }
 
     public void deleteCar(Carro carro1){

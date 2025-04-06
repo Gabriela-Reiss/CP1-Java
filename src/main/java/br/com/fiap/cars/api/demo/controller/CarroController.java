@@ -3,6 +3,7 @@ package br.com.fiap.cars.api.demo.controller;
 
 import br.com.fiap.cars.api.demo.domainmodel.Carro;
 import br.com.fiap.cars.api.demo.dto.CarroDTO;
+import br.com.fiap.cars.api.demo.exceptions.NotFoundException;
 import br.com.fiap.cars.api.demo.service.CarroService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping ("/api")
@@ -28,21 +30,40 @@ public class CarroController {
     }
 
     @PostMapping("/carros")
-    public ResponseEntity<Carro> addCar(@RequestBody Carro carro) {
-        Carro createdCarro = this.carroService.createCar(carro);
-        return new ResponseEntity<>(createdCarro, HttpStatus.CREATED);
+    public ResponseEntity<Object> addCar(@RequestBody Carro carro) {
+        try{
+            Carro createdCarro = this.carroService.createCar(carro);
+            return new ResponseEntity<>(createdCarro, HttpStatus.CREATED);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível cadastrar o Carro");
+        }
+
     }
 
     @GetMapping("/carros/{id}")
-    public ResponseEntity<Carro> getCarById(@PathVariable Long id) {
-        Carro carroId = this.carroService.findById(id);
-        return new ResponseEntity<>(carroId, HttpStatus.OK);
+    public ResponseEntity<Object> getCarById(@PathVariable Long id) {
+            Carro carroId = this.carroService.findById(id);
+            if (carroId == null) {
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body("Carro não encontrado");
+            }
+            return new ResponseEntity<>(carroId, HttpStatus.OK);
+
+
     }
 
     @DeleteMapping("/carros/{id}")
-    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
-        this.carroService.deleteCarById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Object> deleteCar(@PathVariable Long id) {
+        try{
+            this.carroService.deleteCarById(id);
+            return ResponseEntity.noContent().build();
+        } catch (NotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+
     }
 
     @PutMapping("/carros/{id}")

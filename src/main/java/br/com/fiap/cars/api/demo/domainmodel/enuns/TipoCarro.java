@@ -2,7 +2,7 @@ package br.com.fiap.cars.api.demo.domainmodel.enuns;
 
 public enum TipoCarro {
     COMBUSTAO("km/litro"),
-    HIBRIDO("km/l"),
+    HIBRIDO("km/litro"),
     ELETRICO("km/kWh");
 
     private final String unidadeEconomia;
