@@ -2,6 +2,7 @@ package br.com.fiap.cars.api.demo.repositories;
 
 import br.com.fiap.cars.api.demo.domainmodel.Carro;
 import br.com.fiap.cars.api.demo.domainmodel.enuns.TipoCarro;
+import br.com.fiap.cars.api.demo.dto.CarroDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -38,6 +39,24 @@ public class CarroMockRepository {
         carro.setId(ultimoID + 1);
         this.dataset.add(carro);
         return carro;
+    }
+
+    public Carro saveUpdate(Long id, CarroDTO carroDTO){
+        Carro carroId = getById(id);
+
+        if (carroId != null) {
+            carroId.setMarca(carroDTO.getMarca());
+            carroId.setModelo(carroDTO.getModelo());
+            carroId.setAno(carroDTO.getAno());
+            carroId.setAno(carroDTO.getAno());
+            carroId.setTipo(carroDTO.getTipo());
+            carroId.setEconomia(carroDTO.getEconomia());
+            carroId.setPotencia(carroDTO.getPotencia());
+            carroId.setPreco(carroDTO.getPreco());
+            return carroId;
+
+        }
+        return null;
     }
 
     public List<Carro> getAllOrderByPotenciaDesc() {

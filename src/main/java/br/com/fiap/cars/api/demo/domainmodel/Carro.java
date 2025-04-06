@@ -2,27 +2,38 @@ package br.com.fiap.cars.api.demo.domainmodel;
 
 import br.com.fiap.cars.api.demo.domainmodel.enuns.TipoCarro;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
-@Table(name = "CAR")
+@Table(name = "CARRO")
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Carro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String marca;
+
     private String modelo;
+
     private int ano;
+
     private String potencia;
 
     @Enumerated(EnumType.STRING)
     private TipoCarro tipo;
 
-    private String economia; // Agora armazena o valor já com unidade
-
+    private String economia;
     private float preco;
 
-    public Carro() {}
+
 
     public Carro(Long id, String marca, String modelo, int ano, double potencia, TipoCarro tipo, double economiaValor, float preco) {
         this.id = id;
