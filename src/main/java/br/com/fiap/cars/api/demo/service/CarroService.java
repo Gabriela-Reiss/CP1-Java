@@ -3,6 +3,7 @@ package br.com.fiap.cars.api.demo.service;
 
 import br.com.fiap.cars.api.demo.domainmodel.Carro;
 import br.com.fiap.cars.api.demo.dto.CarroDTO;
+import br.com.fiap.cars.api.demo.exceptions.NotFoundException;
 import br.com.fiap.cars.api.demo.repositories.CarroMockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class CarroService {
 
     public Carro findById(Long id) {
         return this.carRepository.getById(id);
+
     }
 
     public List<Carro> findAll() {
@@ -31,9 +33,7 @@ public class CarroService {
         return this.carRepository.saveCar(carro);
     }
 
-    public void deleteCar(Carro carro){
-        this.carRepository.deleteCar(carro);
-    }
+
 
     public Carro updateCar(Long id, CarroDTO carroDto) {
 
